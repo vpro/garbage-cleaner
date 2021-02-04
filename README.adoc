@@ -1,4 +1,6 @@
-Purges a list of folders. Deletes all files older then a specific time period in minutes.
+Purges a list of folders. Deletes all files not accessed for a specific time period.
+
+(Used timing in minutes)
 
 Usage:
 
