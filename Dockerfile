@@ -1,8 +1,17 @@
-FROM ubuntu
+FROM debian
 
-ENV SEARCH_ROOT="."
-ENV AGE_MINUTES=60
+ENV TARGET_FOLDERS="/tmp"
+ENV FILE_AGE_MINUTES=10
+ENV INTERVAL_MINUTES=10
 
-ENTRYPOINT /bin/bash -c 'while sleep 1; do find $SEARCH_ROOT \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.gif" \) -mmin +$AGE_MINUTES -delete; done'
+ADD entrypoint.sh /root/entrypoint.sh
+
+RUN apt-get update \
+  && apt-get -y install tmpreaper \
+  && chgrp -R 0 /root \
+  && chmod -R g=u /root \
+  && chmod +x /root/entrypoint.sh
+
+ENTRYPOINT /root/entrypoint.sh
 
 

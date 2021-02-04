@@ -1,0 +1,12 @@
+Purges a list of folders. Deletes all files older then a specific time period in minutes.
+
+Usage:
+
+[source]
+----
+    docker run \
+        --env "TARGET_FOLDERS=cache,/assets" \
+        --env "FILE_AGE_MINUTES=60" \
+        --env "INTERVAL_MINUTES=60" \
+        garbage-cleaner
+----
