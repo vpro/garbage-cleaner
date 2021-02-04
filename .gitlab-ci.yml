@@ -1,0 +1,13 @@
+stages:
+  - develop
+  - release
+  - deploy
+
+variables:
+  IMAGE_NAME: poms-plus/$CI_PROJECT_NAME
+  REGISTRY: openshift-image-registry.apps.cluster.chp4.io
+
+include:
+  - project: 'npo/gitlab-templates'
+    ref: master
+    file: 'docker_build.yml'
