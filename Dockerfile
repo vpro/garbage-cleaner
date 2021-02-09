@@ -1,8 +1,10 @@
 FROM debian
 
 ENV TARGET_FOLDERS="/tmp"
-ENV FILE_AGE_MINUTES=10
-ENV INTERVAL_MINUTES=10
+ENV FILE_AGE=10s
+ENV INTERVAL=10s
+# Optionally use --ctime/--mtime
+ENV MARK=""
 
 ADD entrypoint.sh /root/entrypoint.sh
 
