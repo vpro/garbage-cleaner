@@ -1,7 +1,6 @@
 stages:
   - develop
   - release
-  - deploy
 
 variables:
   IMAGE_NAME: poms-plus/$CI_PROJECT_NAME
