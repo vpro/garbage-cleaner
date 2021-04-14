@@ -1,21 +1,12 @@
 #!/usr/bin/env bash
 
-target_folders=($(echo ${TARGET_FOLDERS:-''} | tr "," "\n"))
-mark=($(echo ${MARK:-''}))
+declare -p | grep -Ev 'BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID' > /root/container.env
 
-printf "Starting garbage cleaner for target_folders %s\n" $TARGET_FOLDERS
+echo "SHELL=/bin/bash
+BASH_ENV=/root/container.env
+$CRON /root/purge.sh >> /var/log/cron.log 2>&1
+#" > scheduler.txt
 
-while true; do
+crontab scheduler.txt
 
-    for i in "${!target_folders[@]}"; do
-      folder=${target_folders[$i]}
-
-      printf "Recursive deleting files in: \"%s\" older then %s\n" $folder $FILE_AGE
-
-      tmpreaper --showdeleted $mark $FILE_AGE $folder
-    done
-
-    sleep $INTERVAL
-
-done
-
+cron -f
