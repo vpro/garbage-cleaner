@@ -1,7 +1,3 @@
-stages:
-  - develop
-  - release
-
 variables:
   IMAGE_NAME: poms-plus/$CI_PROJECT_NAME
   REGISTRY: openshift-image-registry.apps.cluster.chp4.io
