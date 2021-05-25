@@ -3,6 +3,6 @@ variables:
   REGISTRY: openshift-image-registry.apps.cluster.chp4.io
 
 include:
-  - project: 'npo/gitlab-templates'
+  - project: 'shared/gitlab/gitlab-templates'
     ref: master
     file: 'docker_build.yml'
