@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-target_folders=($(echo ${TARGET_FOLDERS:-''} | tr "," "\n"))
+read -a target_folders <<< "${TARGET_FOLDERS:-''}"
 mark=($(echo ${MARK:-''}))
 
 for i in "${!target_folders[@]}"; do

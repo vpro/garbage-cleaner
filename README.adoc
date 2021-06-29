@@ -12,3 +12,5 @@ Usage:
         --env "CRON=*/5 * * * *" \
         garbage-cleaner
 ----
+
+Also, it will clean up logs in /data/logs

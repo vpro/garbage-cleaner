@@ -1,6 +1,10 @@
 FROM debian
+# it seems we use debian because it provides tmpreaper
+# it'll cost about 150Mb in comparison with alpine.
+# is that worth it?
 
 ENV TARGET_FOLDERS="/tmp"
+ENV LOG_FOLDERS="/data/logs"
 ENV FILE_AGE=10s
 ENV CRON="* * * * *"
 # Optionally use --ctime/--mtime
