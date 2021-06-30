@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 IFS=','
-read -a target_folders <<< "$1"
+read -r -a target_folders <<< "$1"
 for i in "${!target_folders[@]}"; do
   folder=${target_folders[$i]}
   OLD="$folder/OLD"
