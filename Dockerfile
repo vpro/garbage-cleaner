@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:buster
 # it seems we use debian because it provides tmpreaper
 # it'll cost about 150Mb in comparison with alpine.
 # is that worth it?
@@ -30,7 +30,8 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
  && chmod +x "$SUPERCRONIC" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
- && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
+ && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic \
+ && apt-get -y autoremove curl
 
 WORKDIR /root
 

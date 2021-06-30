@@ -6,6 +6,8 @@ for i in "${!target_folders[@]}"; do
   folder=${target_folders[$i]}
   OLD="$folder/OLD"
   mkdir -p "$OLD"
-  find "$folder" -type f -maxdepth 1 -mtime +3 -not -name "*.gz" -exec gzip {} \; -exec mv {}.gz "OLD/" \;
-  find "$OLD" -type f -name "*.gz" -mtime +30 -exec echo "removing " {} \; -exec gzip {} \;
+  echo "Zipping files in $folder and moving them to $OLD"
+  find "$folder" -maxdepth 1 -type f  -mtime +3 -not -name '*.gz' -exec gzip {} \; -exec touch {}.gz \; -exec mv {}.gz "OLD/" \;
+  echo "Removing old files in $OLD"
+  find "$OLD" -maxdepth 1  -type f  -name "*.gz" -mtime +30 -exec echo "removing " {} \; -delete
 done

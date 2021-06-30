@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-read -a target_folders <<< "${TARGET_FOLDERS:-''}"
-mark=($(echo ${MARK:-''}))
+read -a target_folders <<< "$1"
+mark=${MARK:-'-atime'}
+fileage=${FILE_AGE:-'1d'}
 
 for i in "${!target_folders[@]}"; do
   folder=${target_folders[$i]}
