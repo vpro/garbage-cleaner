@@ -12,12 +12,15 @@ ENV MARK=""
 
 ADD entrypoint.sh /root/entrypoint.sh
 ADD purge.sh /root/purge.sh
+ADD move_logs.sh /root/move_logs.sh
+
 
 RUN apt-get update \
   && apt-get -y install tmpreaper curl \
   && chgrp -R 0 /root \
   && chmod -R g=u /root \
-  && chmod +x /root/entrypoint.sh /root/purge.sh
+  && chmod +x /root/entrypoint.sh /root/purge.sh /root/move_logs.sh
+
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.12/supercronic-linux-amd64 \
     SUPERCRONIC=supercronic-linux-amd64 \
