@@ -7,7 +7,7 @@ for i in "${!target_folders[@]}"; do
   OLD="$folder/OLD"
   mkdir -p "$OLD"
   echo "Zipping files in $folder and moving them to $OLD"
-  find "$folder" -maxdepth 1 -type f  -mtime +3 -not -name '*.gz' -exec gzip {} \; -exec touch {}.gz \; -exec mv {}.gz "$OLD/" \;
+  find "$folder" -maxdepth 1 -type f  -mtime +1 -not -name '*.gz' -exec gzip {} \; -exec touch {}.gz \; -exec mv {}.gz "$OLD/" \;
   echo "Removing old files in $OLD"
   find "$OLD" -maxdepth 1  -type f  -name "*.gz" -mtime +30 -exec echo "removing " {} \; -delete
 done
