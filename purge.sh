@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 read -a target_folders <<< "$1"
-mark=${MARK:-'-atime'}
+mark=${MARK:-'--ctime'}
 fileage=${FILE_AGE:-'1d'}
 
 for i in "${!target_folders[@]}"; do
   folder=${target_folders[$i]}
 
-  printf "Recursive deleting files in: \"%s\" older then %s\n" $folder $FILE_AGE
+  printf "Recursive deleting files in: \"%s\" older then %s\n" $folder $fileage
 
-  tmpreaper --showdeleted $mark $FILE_AGE $folder
+  tmpreaper --showdeleted $mark $fileage $folder
 done
