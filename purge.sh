@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 read -a target_folders <<< "$1"
-mark=${MARK:-'--ctime'}
+mark=${MARK:-''} # default is no mark, this is meant to mean 'access time'
 fileage=${FILE_AGE:-'1d'}
 
 for i in "${!target_folders[@]}"; do
