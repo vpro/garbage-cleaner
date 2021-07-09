@@ -33,6 +33,24 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic \
  && apt-get -y autoremove curl
 
+
+# Have a workable shell
+SHELL ["/bin/bash", "-c"]
+
+ENV TZ=Europe/Amsterdam
+ENV HISTFILE=/data/.bash_history_cleaner
+
+RUN echo "dash dash/sh boolean false" | debconf-set-selections &&  DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash ; exit 0 && \
+  ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
+  dpkg-reconfigure --frontend noninteractive tzdata
+
+# With bearable key bindings:
+COPY inputrc /etc
+
+# And a nicer bash prompt
+COPY bashrc /.bashrc
+
+
 WORKDIR /root
 
 ENTRYPOINT /root/entrypoint.sh
