@@ -7,6 +7,7 @@ ENV TARGET_FOLDERS="/tmp"
 ENV LOG_FOLDERS="/data/logs"
 ENV FILE_AGE=10s
 ENV CRON="* * * * *"
+ENV MAX_RUNTIME=600
 # Optionally use --ctime/--mtime
 ENV MARK=""
 
