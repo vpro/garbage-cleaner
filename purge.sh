@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-read -a target_folders <<< "$1"
+read -d, -a target_folders <<< "$1"
 mark=${MARK:-''} # default is no mark, this is meant to mean 'access time'
 fileage=${FILE_AGE:-'1d'}
 runtime=${MAX_RUNTIME:-600}
