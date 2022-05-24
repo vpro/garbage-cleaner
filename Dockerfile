@@ -45,6 +45,7 @@ RUN echo "dash dash/sh boolean false" | debconf-set-selections &&  DEBIAN_FRONTE
   ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
   dpkg-reconfigure --frontend noninteractive tzdata
 
+
 # With bearable key bindings:
 COPY inputrc /etc
 
@@ -53,5 +54,13 @@ COPY bashrc /.bashrc
 
 
 WORKDIR /root
+
+# We run always with a user named 'application' with uid '1001'
+RUN addgroup  --system --gid 1001 application && \
+    adduser --system --uid 1001 application --gid 1001 --disabled-password --no-create-home --home / && \
+    adduser application root && \
+    date > /garbage-cleaner.build
+
+USER 1001
 
 ENTRYPOINT /root/entrypoint.sh
