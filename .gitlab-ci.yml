@@ -1,8 +1,9 @@
+---
 variables:
   IMAGE_NAME: poms-plus/$CI_PROJECT_NAME
   REGISTRY: openshift-image-registry.apps.cluster.chp4.io
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/4.14'
+    ref: 'master'
     file: 'docker_build.yml'

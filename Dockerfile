@@ -3,6 +3,8 @@ FROM debian:buster
 # it'll cost about 150Mb in comparison with alpine.
 # is that worth it?
 
+LABEL maintainer=digitaal-techniek@vpro.nl
+
 ENV TARGET_FOLDERS="/tmp"
 ENV LOG_FOLDERS="/data/logs"
 ENV FILE_AGE=10s
@@ -59,7 +61,7 @@ WORKDIR /root
 RUN addgroup  --system --gid 1001 application && \
     adduser --system --uid 1001 application --gid 1001 --disabled-password --no-create-home --home / && \
     adduser application root && \
-    date > /garbage-cleaner.build
+    (echo -n vpro/garbage-cleaner ; date -Iseconds) > /DOCKER.BUILD
 
 USER 1001
 
