@@ -61,7 +61,7 @@ WORKDIR /root
 RUN addgroup  --system --gid 1001 application && \
     adduser --system --uid 1001 application --gid 1001 --disabled-password --no-create-home --home / && \
     adduser application root && \
-    (echo -n vpro/garbage-cleaner ; date -Iseconds) > /DOCKER.BUILD
+    (echo -n poms-plus/garbage-cleaner ; date -Iseconds) > /DOCKER.BUILD
 
 USER 1001
 
