@@ -8,7 +8,7 @@ runtime=${MAX_RUNTIME:-600}
 for i in "${!target_folders[@]}"; do
   folder=${target_folders[$i]}
 
-  printf "Recursive deleting files in: \"%s\" older then %s\n" $folder $fileage
+  printf "Recursive deleting files in: ""%s"" older then %s\n" $folder $fileage
 
   tmpreaper --showdeleted -T $runtime $mark $fileage $folder
 done
