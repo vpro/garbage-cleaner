@@ -10,5 +10,6 @@ for i in "${!target_folders[@]}"; do
 
   printf "Recursive deleting files in: ""%s"" older then %s\n" $folder $fileage
 
-  tmpreaper --showdeleted -T $runtime $mark $fileage $folder
+  # name your directory PLEASE_REMOVE if it contains files which we lack permissions to delete
+  tmpreaper --protect '{,*,*/*}/PLEASE_REMOVE/*'  --showdeleted -T $runtime $mark $fileage $folder
 done
