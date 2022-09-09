@@ -13,16 +13,11 @@ ENV MAX_RUNTIME=600
 # Optionally use --ctime/--mtime
 ENV MARK=""
 
-ADD entrypoint.sh /root/entrypoint.sh
-ADD purge.sh /root/purge.sh
-ADD move_logs.sh /root/move_logs.sh
-
 
 RUN apt-get update \
   && apt-get -y install tmpreaper curl \
   && chgrp -R 0 /root \
-  && chmod -R g=u /root \
-  && chmod +x /root/entrypoint.sh /root/purge.sh /root/move_logs.sh
+  && chmod -R g=u /root
 
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.12/supercronic-linux-amd64 \
@@ -35,6 +30,14 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic \
  && apt-get -y autoremove curl
+
+
+ADD entrypoint.sh /root/entrypoint.sh
+ADD purge.sh /root/purge.sh
+ADD move_logs.sh /root/move_logs.sh
+
+RUN chmod +x /root/entrypoint.sh /root/purge.sh /root/move_logs.sh
+
 
 
 # Have a workable shell
