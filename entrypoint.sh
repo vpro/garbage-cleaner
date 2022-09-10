@@ -6,9 +6,9 @@ echo "@daily /root/move_logs.sh $LOG_FOLDERS" >> scheduler.txt
 trap stop SIGTERM
 
 function start() {
-  supercronic scheduler.txt | (echo $! > pid ; tee -a schedule.txt) &
+  supercronic scheduler.txt | (echo $! > pid ; tee -a log) &
   echo "Waiting for supercronic"
-  tail -F "schedule.txt" --pid $$  2>/dev/null & tailPid=$!
+  tail -F "log" --pid $$  2>/dev/null & tailPid=$!
   wait $tailPid
 }
 function stop() {
