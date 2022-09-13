@@ -8,7 +8,7 @@ Usage:
 ----
     docker run \
         --env "TARGET_FOLDERS=cache,/assets" \
-        --env "FILE_AGE=2d" \
+        --env "FILE_AGE=2" \
         --env "CRON=*/5 * * * *" \
         garbage-cleaner
 ----
