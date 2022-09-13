@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
+# enable job control
+set -m
 
-echo "$CRON /root/purge.sh $TARGET_FOLDERS" > scheduler.txt
-echo "@daily /root/move_logs.sh $LOG_FOLDERS" >> scheduler.txt
+echo "$CRON /root/purge.sh $TARGET_FOLDERS" > /etc/crontabs/application
+echo "@daily /root/move_logs.sh $LOG_FOLDERS" >> /etc/crontabs/application
 
 trap stop SIGTERM
 
 start() {
-  supercronic scheduler.txt | (echo $! > pid ; tee -a log) &
-  echo "Waiting for supercronic"
-  tail -F "log" --pid $$  2>/dev/null & tailPid=$!
-  wait $tailPid
+# source: `docker run --rm -it alpine  crond -h`
+# -f | Foreground
+# -d N | Set log level and log to stderr. Most verbose 0, default 8
+  crond -f -d 8 2>&1 &
+  echo $! > pid
+  fg
+  echo "Cron stopped"
 }
 stop() {
   pid=$(cat pid)
