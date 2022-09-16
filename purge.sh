@@ -9,6 +9,6 @@ for i in "${!target_folders[@]}"; do
   printf "Recursive deleting files in: ""%s"" older then %s\n" $folder $fileage
   # mindepth 1: don't include the base directories as things to delete
   find "$folder" -type f $mark +$fileage -delete
-  find "$folder" -mindepth 1 -type d $mark +$fileage -delete
+  find "$folder" -mindepth 1 -type d $mark +$fileage -empty -delete
   echo "Done"
 done
