@@ -11,5 +11,5 @@ run:
 
 test_purge:
 	@ACTION=-ls ./purge.sh /tmp
-	@ACTION=-ls ./purge.sh /tmp:-mtime
+	@ACTION=-ls ./purge.sh /share,/data/letterbox,/data/assets:-atime:7,/data/uploads:-atime:7
 

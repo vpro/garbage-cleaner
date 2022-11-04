@@ -4,7 +4,7 @@
 IFS=','; read -ra target_folders <<< "$1"
 default_mark=${MARK:-'-atime'}
 default_fileage=${FILE_AGE:-'1'}
-action=${ACTION:-delete}
+action=${ACTION:-'-delete'}
 
 for i in "${!target_folders[@]}"; do
   # split it with colons: directory[:<mark>:[<age>]]
