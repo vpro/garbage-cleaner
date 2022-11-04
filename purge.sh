@@ -12,9 +12,14 @@ for i in "${!target_folders[@]}"; do
   IFS=':'; read -ra folder_array <<< ${target_folders[$i]}
   folder=${folder_array[0]}
   length=${#folder_array[@]}
-  mark=$([ $length -gt 1 ] -a [ ${folder_array[1]} != '' ] && echo "${folder_array[1]}" || echo  "$default_mark" )
+  mark=$default_mark
+  if [ $length -gt 1 ] ; then
+    if [ ${folder_array[1]} != ''  ] ; then
+      mark=${folder_array[1]}
+    fi
+  fi
   fileage=$([ $length -gt 2 ] && echo "${folder_array[2]}" || echo  "$default_fileage" )
-  printf "Recursive deleting files in: ""%s"" older then %s (%s))\n" $folder $fileage $mark
+  printf "Recursive deleting (%s) files in: ""%s"" older then %s (%s))\n" $action $folder $fileage $mark
   # mindepth 1: don't include the base directories as things to delete
   find "$folder" -type f $mark +$fileage $action
 
