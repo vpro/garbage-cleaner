@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 #set -x
+# This script will delete all files in a number of directories (and their subdirectories) older then a certain age
+# params: <folder 1>[:<mark>[:<age>]][,<folder 2>[:<mark>[:<age>]]]...
+
+
 
 IFS=','; read -ra target_folders <<< "$1"
 default_mark=${MARK:-'-atime'}
