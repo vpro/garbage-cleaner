@@ -2,8 +2,10 @@
 # enable job control
 set -m
 
-echo "$CRON /root/purge.sh $TARGET_FOLDERS" > scheduler.txt
-echo "@daily /root/move_logs.sh $LOG_FOLDERS" >> scheduler.txt
+# folders to purge after a certain time
+echo "$CRON_PURGE /root/purge.sh \"$TARGET_FOLDERS\"" > scheduler.txt
+# folders to move after a certain time (specification on the commandline is possible)
+echo "$CRON_MOVELOGS /root/move_logs.sh \"$LOG_FOLDERS\"" >> scheduler.txt
 
 trap stop SIGTERM
 

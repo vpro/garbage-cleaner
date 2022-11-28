@@ -5,7 +5,8 @@ LABEL maintainer=digitaal-techniek@vpro.nl
 ENV TARGET_FOLDERS="/tmp"
 ENV LOG_FOLDERS="/data/logs"
 ENV FILE_AGE=1
-ENV CRON="* * * * *"
+ENV CRON_PURGE="3 * * * *"
+ENV CRON_MOVELOGS="5 * * * *"
 # Optionally use --ctime/--mtime
 ENV MARK=""
 
