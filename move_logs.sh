@@ -12,13 +12,13 @@
 
 
 default_fileage_to_delete=("-mtime" "+30")
-default_fileage_to_zip=("-mtime"  "+1")
+default_fileage_to_zip=("-mtime" "+1")
 #set -x
 # delete action, can be overridden via environment for debuggin
 action=${ACTION:-'-delete'}
 
 IFS=','
-read -r -a target_folders <<< "$1"
+read -ra target_folders <<< "$1"
 for i in "${!target_folders[@]}"; do
   IFS=':'; read -ra folder_array <<< ${target_folders[$i]}
   folder=${folder_array[0]}
@@ -40,7 +40,7 @@ for i in "${!target_folders[@]}"; do
   OLD="$folder/OLD"
   mkdir -p "$OLD"
   echo "Removing old files in $OLD"
-  find "$OLD" -maxdepth 1  -type f  -name "*.gz" "${fileage_to_delete[@]}" -exec echo "removing " {} \; ${action}
+  find "$OLD" -maxdepth 1 -type f  -name "*.gz" "${fileage_to_delete[@]}" -exec echo "removing " {} \; ${action}
   echo "Zipping files in $folder and moving them to $OLD"
   find "$folder" -maxdepth 1 -type f  "${fileage_to_zip[@]}" -not -name '*.gz' -exec echo zipping {} \; -exec gzip {} \; -exec touch {}.gz \; -exec mv {}.gz "$OLD/" \;
 done

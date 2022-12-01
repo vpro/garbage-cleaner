@@ -7,7 +7,8 @@ Usage:
 [source]
 ----
     docker run \
-        --env "TARGET_FOLDERS=cache,/assets" \
+        --env "PURGE_FOLDERS=cache,/assets" \
+        --env "LOG_FOLDERS="/data/logs" \
         --env "FILE_AGE=2" \
         --env "CRON_MOVELOGS=*/5 * * * *" \
         --env "CRON_PURGE=0 3 * * *" \

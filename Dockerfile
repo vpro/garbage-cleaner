@@ -2,13 +2,11 @@ FROM alpine:3.16
 
 LABEL maintainer=digitaal-techniek@vpro.nl
 
-ENV TARGET_FOLDERS="/tmp"
+ENV PURGE_FOLDERS="/tmp"
 ENV LOG_FOLDERS="/data/logs"
-ENV FILE_AGE=1
-ENV CRON_PURGE="3 * * * *"
+# CRON_PURGE is optional
+ENV CRON_PURGE=""
 ENV CRON_MOVELOGS="5 * * * *"
-# Optionally use --ctime/--mtime
-ENV MARK=""
 
 RUN apk update  --no-cache \
   && apk upgrade --no-cache \
