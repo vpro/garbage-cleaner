@@ -6,7 +6,7 @@
 #   - Remove all files therein modified over 30 days ago
 #   - In the log folder itself gzip all files over 1 day old, and move them to OLD
 #   
-#  30 days and 1 day are just defaults, and can be override
+#  30 days and 1 day are just defaults, and can be overriden
 #  E.g. zip after 2 hours, delete after 6 days.
 #  ./move_logs.sh /data/logs:-mmin +120:-mtime +6
 
