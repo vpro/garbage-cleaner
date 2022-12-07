@@ -7,6 +7,7 @@ ENV LOG_FOLDERS="/data/logs"
 # CRON_PURGE is optional
 ENV CRON_PURGE=""
 ENV CRON_MOVELOGS="5 * * * *"
+ENV ENV=/.profile
 
 RUN apk update  --no-cache \
   && apk upgrade --no-cache \
@@ -30,6 +31,7 @@ ADD entrypoint.sh /root/entrypoint.sh
 ADD purge.sh /root/purge.sh
 ADD move_logs.sh /root/move_logs.sh
 
+
 RUN chmod +x /root/entrypoint.sh /root/purge.sh /root/move_logs.sh
 
 # Have a workable shell
@@ -45,6 +47,8 @@ COPY inputrc /etc
 
 # And a nicer bash prompt
 COPY bashrc /.bashrc
+
+COPY profile /.profile
 
 WORKDIR /root
 
