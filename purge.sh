@@ -22,7 +22,7 @@ for i in "${!target_folders[@]}"; do
     fi
   fi
   # mindepth 1: don't include the base directories as things to delete
-  echo "Removing files in $folder with command ${fileage[@]}"
+  echo "Removing files in $folder with command" "${fileage[@]}"
   find "$folder" -maxdepth 1 -type f "${fileage[@]}" -exec echo "removing " {} \; ${action}
 
   # for directories: always mtime, e.g. placing a file in a directory will _not_ change it's atime.
