@@ -7,7 +7,6 @@ ENV LOG_FOLDERS="/data/logs"
 # CRON_PURGE is optional
 ENV CRON_PURGE=""
 ENV CRON_MOVELOGS="5 * * * *"
-ENV ENV=/.profile
 
 RUN apk update  --no-cache \
   && apk upgrade --no-cache \
@@ -48,7 +47,8 @@ COPY inputrc /etc
 # And a nicer bash prompt
 COPY bashrc /.bashrc
 
-COPY profile /.profile
+ENV ENV=/.binbash
+COPY binbash /.binbash
 
 WORKDIR /root
 
