@@ -7,6 +7,9 @@
 default_fileage=("-atime" "+30")
 action=${ACTION:-'-delete'}
 
+# Files to zip. Only those that are rotated away, and hence contain 'year-' in the filename.
+regex=$(REGEX:-'.*2[0-9][0-9][0-9]\-.*')
+
 IFS=','
 read -ra target_folders <<< "$1"
 for i in "${!target_folders[@]}"; do
@@ -23,7 +26,7 @@ for i in "${!target_folders[@]}"; do
   fi
   # mindepth 1: don't include the base directories as things to delete
   echo "Removing files in $folder with command" "${fileage[@]}"
-  find "$folder" -maxdepth 1 -type f "${fileage[@]}" -exec echo "removing " {} \; ${action}
+  find "$folder" -maxdepth 1 -regexp "${regex}" -type f "${fileage[@]}" -exec echo "removing " {} \; ${action}
 
   # for directories: always mtime, e.g. placing a file in a directory will _not_ change it's atime.
   echo "Removing directories in $folder with command -mtime ${fileage[1]}"
