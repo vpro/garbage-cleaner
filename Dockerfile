@@ -59,5 +59,6 @@ RUN addgroup  -S -g 1001 application && \
     (echo -n poms-plus/garbage-cleaner= ; date -Iseconds) > /DOCKER.BUILD
 
 USER 1001
+EXPOSE 9080
 
 ENTRYPOINT /root/entrypoint.sh

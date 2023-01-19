@@ -6,8 +6,7 @@ docker:
 
 
 run:
-	docker run  -e PURGE_FOLDERS="/share,/data/letterbox,/data/assets:-atime +7,/data/uploads:-atime +7" -e "CRON_PURGE=0 3 * * *" garbage-cleaner
-
+	docker run -it  -p 9080:9080 -e PURGE_FOLDERS="/share,/data/letterbox,/data/assets:-atime +7,/data/uploads:-atime +7" -e "CRON_PURGE=0 3 * * *" garbage-cleaner
 
 test_purge:
 	@ACTION=-ls ./purge.sh /tmp
