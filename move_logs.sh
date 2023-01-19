@@ -44,5 +44,5 @@ for i in "${!target_folders[@]}"; do
   echo "Removing old gz-files in $OLD"
   find "$OLD" -maxdepth 1 -type f  -name "*.gz" "${fileage_to_delete[@]}" -exec echo "removing " {} \; ${action}
   echo "Zipping files in $folder and moving them to $OLD"
-  find "$folder" -maxdepth 1 -type f  "${fileage_to_zip[@]}" -regex "${regex}" -not -name '*.gz' -exec echo zipping {} \; -exec gzip {} \; -exec touch {}.gz \; -exec mv {}.gz "$OLD/" \;
+  find "$folder" -maxdepth 1 -type f  "${fileage_to_zip[@]}" -regex "${regex}" -not -name '*.gz' -exec echo zipping {} \; -exec  sh -c 'if [ 1 == $(find -samefile $i  | wc -l) ] ; then gzip $1; else echo not zipping $1 because has same files; fi' shell {} \; -exec touch {}.gz \; -exec mv {}.gz "$OLD/" \;
 done
