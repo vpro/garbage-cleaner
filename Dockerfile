@@ -7,6 +7,7 @@ ENV LOG_FOLDERS="/data/logs"
 # CRON_PURGE is optional
 ENV CRON_PURGE=""
 ENV CRON_MOVELOGS="5 * * * *"
+ENV FORMAT="removing %Am-%AdT%AH:%AM %Tm-%TdT%TH:%TM %h/%f\n"
 
 RUN apk update  --no-cache \
   && apk upgrade --no-cache \
