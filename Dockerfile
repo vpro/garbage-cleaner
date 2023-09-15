@@ -1,4 +1,4 @@
-FROM alpine:3.17
+FROM alpine:3.18
 
 LABEL maintainer=digitaal-techniek@vpro.nl
 
@@ -16,9 +16,9 @@ RUN apk update  --no-cache \
   && chmod -R g=u /root
 
 
-ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.2/supercronic-linux-amd64 \
+ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.26/supercronic-linux-amd64 \
     SUPERCRONIC=supercronic-linux-amd64 \
-    SUPERCRONIC_SHA1SUM=2319da694833c7a147976b8e5f337cd83397d6be
+    SUPERCRONIC_SHA1SUM=7a79496cf8ad899b99a719355d4db27422396735
 
 RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
@@ -63,3 +63,5 @@ USER 1001
 EXPOSE 9080
 
 ENTRYPOINT /root/entrypoint.sh
+
+CMD ["/root/entrypoint.sh"]
