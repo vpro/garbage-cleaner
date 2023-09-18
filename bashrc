@@ -25,5 +25,4 @@ function aptime() {
     echo -e "supercronic version:$col${SUPERCRONIC_URL}"
 
     cat /DOCKER.BUILD | awk -F= "{print \$1\":$col\"\$2}"
-
 }

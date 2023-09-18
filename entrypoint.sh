@@ -20,14 +20,14 @@ start() {
   supercronic  -prometheus-listen-address 0.0.0.0:9080  scheduler.txt 2>&1   &
   echo $! > pid
   pid=$(cat pid)
-  echo Waiting for $pid
+  echo Waiting for $pid now
   wait $pid
-
 }
+
 stop() {
   echo "Received SIGTERM"
   pid=$(cat pid)
-  echo "killing $pid"
+  echo "Killing $pid"
   kill -9 $pid
   echo "Killed $pid"
   echo "ready"
