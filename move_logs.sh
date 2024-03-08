@@ -9,6 +9,8 @@
 #  30 days and 1 day are just defaults, and can be overridden
 #  E.g. zip after 2 hours, delete after 6 days.
 #  ./move_logs.sh /data/logs:-mmin +120:-mtime +6
+# 
+# multiple dirs ./move ./move_logs.sh /data/logs:-mmin +120:-mtime +6,/data/logs/gclogs
 
 
 default_fileage_to_delete=("-mtime" "+30")
