@@ -25,6 +25,6 @@ function aptime() {
     echo -e "supercronic version:$col${SUPERCRONIC_URL}"
     
     OS_VERSION=$(cat /etc/os-release | grep PRETTY_NAME | awk -F= "{print \$2}" | tr -d '"')
-
+    echo -e "os version:$col${OS_VERSION}"
     cat /DOCKER.BUILD | awk -F= "{print \$1\":$col\"\$2}"
 }
