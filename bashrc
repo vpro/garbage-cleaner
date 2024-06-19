@@ -23,6 +23,8 @@ function aptime() {
     uptime=$(ps  -o pid,etime  | awk "\$1 == $pid {print \$2}")
     echo -e "uptime:$col$uptime"
     echo -e "supercronic version:$col${SUPERCRONIC_URL}"
+    
+    cat /etc/os-release | grep PRETTY_NAME | awk -F= "{print \"OS-RELEASE:$col\"\$2}"
 
     cat /DOCKER.BUILD | awk -F= "{print \$1\":$col\"\$2}"
 }
