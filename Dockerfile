@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.20
 
 LABEL maintainer=digitaal-techniek@vpro.nl
 
@@ -16,9 +16,9 @@ RUN apk update  --no-cache \
   && chmod -R g=u /root
 
 
-ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.26/supercronic-linux-amd64 \
+ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.30/supercronic-linux-amd64 \
     SUPERCRONIC=supercronic-linux-amd64 \
-    SUPERCRONIC_SHA1SUM=7a79496cf8ad899b99a719355d4db27422396735
+    SUPERCRONIC_SHA1SUM=9f27ad28c5c57cd133325b2a66bba69ba2235799
 
 RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
@@ -53,13 +53,8 @@ COPY binbash /.binbash
 
 WORKDIR /root
 
-# We run the crontab entries with a user named 'application' with uid '1001'
-RUN addgroup  -S -g 1001 application && \
-    adduser -S -u 1001 application -G application --disabled-password --no-create-home --home / && \
-    adduser application root && \
-    (echo -n poms-plus/garbage-cleaner= ; date -Iseconds) > /DOCKER.BUILD
+RUN (echo -n poms/garbage-cleaner= ; date -Iseconds) > /DOCKER.BUILD
 
-USER 1001
 EXPOSE 9080
 
 ENTRYPOINT /root/entrypoint.sh

@@ -42,6 +42,7 @@ for i in "${!target_folders[@]}"; do
   fi
 
   OLD="$folder/OLD"
+  chmod 2775 "$folder" "$OLD"
   mkdir -p "$OLD"
   echo "Removing old gz-files in $OLD"
   find "$OLD" -maxdepth 1 -type f  -name "*.gz" "${fileage_to_delete[@]}" -exec echo "removing " {} \; ${action}
