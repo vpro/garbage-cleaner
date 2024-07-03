@@ -53,13 +53,8 @@ COPY binbash /.binbash
 
 WORKDIR /root
 
-# We run the crontab entries with a user named 'application' with uid '1001'
-RUN addgroup  -S -g 1001 application && \
-    adduser -S -u 1001 application -G application --disabled-password --no-create-home --home / && \
-    adduser application root && \
-    (echo -n poms-plus/garbage-cleaner= ; date -Iseconds) > /DOCKER.BUILD
+RUN (echo -n poms/garbage-cleaner= ; date -Iseconds) > /DOCKER.BUILD
 
-USER 1001
 EXPOSE 9080
 
 ENTRYPOINT /root/entrypoint.sh
