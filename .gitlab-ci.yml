@@ -1,9 +1,49 @@
 ---
 variables:
-  IMAGE_NAME: poms-plus/$CI_PROJECT_NAME
-  REGISTRY: openshift-image-registry.apps.cluster.chp4.io
+  IMAGE_NAME: $CI_PROJECT_NAME
+  REGISTRY: registry.npohosting.nl
+  NAMESPACE: poms
+  DEPLOY_BRANCH_TEST: manual
+  DEPLOY_TEST: manual
+
+stages:
+  - build
+  - publish
+
+build:
+  extends: .kaniko_build
+  stage: build
+
+publish-prod:
+  extends: .publish-image
+  variables:
+    TOKEN: $OPENSHIFT_PROD_TOKEN
+    SERVER: $OPENSHIFT_PROD_SERVER
+  rules: !reference [.rules, docker_build]
+
+publish-test:
+  extends: .publish-image
+  variables:
+    TOKEN: $OPENSHIFT_TEST_TOKEN
+    SERVER: $OPENSHIFT_TEST_SERVER
+  rules: !reference [.rules, docker_build]
+
+
+.publish-image:
+  needs: [build]
+  stage: publish
+  image: docker.vpro.nl/vpro/openshift-helm:2.2.1
+  script:
+    - |
+      oc login --server=$SERVER --token=$TOKEN -n poms
+      echo Importing $REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG
+      oc import-image $NAMESPACE/$IMAGE_NAME:$IMAGE_TAG --from=$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG --confirm --scheduled=true
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/9.8'
+    ref: 'feature/chp5'
     file: 'docker_build.yml'
+  - project: 'shared/gitlab/gitlab-templates'
+    ref: 'feature/chp5'
+    file: 'util/rules.yml'
+
