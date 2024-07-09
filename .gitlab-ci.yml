@@ -41,9 +41,9 @@ publish-test:
 
 include:
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/11.0'
+    ref: 'tags/11.1'
     file: 'docker_build.yml'
   - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/11.0'
+    ref: 'tags/11.1'
     file: 'util/rules.yml'
 
