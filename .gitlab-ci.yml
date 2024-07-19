@@ -1,6 +1,7 @@
 ---
 variables:
-  IMAGE_NAME: poms-plus/$CI_PROJECT_NAME
+  NAMESPACE: poms-plus
+  IMAGE_NAME: $CI_PROJECT_NAME
   REGISTRY: openshift-image-registry.apps.cluster.chp4.io
 
 include:
