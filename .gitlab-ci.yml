@@ -32,7 +32,7 @@ publish-test:
 .publish-image:
   needs: [build]
   stage: publish
-  image: docker.vpro.nl/vpro/openshift-helm:2.2.1
+  image: registry.npohosting.nl/poms/openshift-helm:2.2.1
   script:
     - |
       oc login --server=$SERVER --token=$TOKEN -n poms
