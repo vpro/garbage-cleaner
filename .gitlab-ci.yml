@@ -40,10 +40,10 @@ publish-test:
       oc import-image $NAMESPACE/$IMAGE_NAME:$IMAGE_TAG --from=$REGISTRY/$NAMESPACE/$IMAGE_NAME:$IMAGE_TAG --confirm --scheduled=true
 
 include:
-  - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/11.1'
+  - project: 'npo-identity/poms/gitlab-templates'
+    ref: 'tags/11.2'
     file: 'docker_build.yml'
-  - project: 'shared/gitlab/gitlab-templates'
-    ref: 'tags/11.1'
+  - project: 'npo-identity/poms/gitlab-templates'
+    ref: 'tags/11.2'
     file: 'util/rules.yml'
 
