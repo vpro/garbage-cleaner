@@ -1,4 +1,8 @@
-Purges a list of folders. Deletes all files not accessed for a specific time period.
+= Garbage cleaner docker image
+
+This project is used as a 'sidecar' in all statefull sets.
+
+Purges old files from a list of folders. Deletes all files not accessed for a specific time period.
 
 (Used timing in minutes)
 
