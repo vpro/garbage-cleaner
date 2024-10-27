@@ -1,6 +1,6 @@
 = Garbage cleaner docker image
 
-This project is used as a 'sidecar' in all statefull sets.
+This project is used as a 'side car' in all statefull sets.
 
 Purges old files from a list of folders. Deletes all files not accessed for a specific time period.
 
