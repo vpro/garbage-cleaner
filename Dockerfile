@@ -61,4 +61,4 @@ EXPOSE 9080
 
 ENTRYPOINT /root/entrypoint.sh
 
-CMD ["/root/entrypoint.sh"]
+ 
