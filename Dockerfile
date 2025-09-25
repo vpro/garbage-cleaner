@@ -1,6 +1,6 @@
 FROM alpine:3.22
 
-LABEL maintainer=digitaal-techniek@vpro.nl
+LABEL maintainer="digitaal-techniek@vpro.nl,michiel@mmprogrami.nl"
 
 ENV PURGE_FOLDERS="/tmp"
 ENV LOG_FOLDERS="/data/logs"
