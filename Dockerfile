@@ -1,4 +1,4 @@
-FROM alpine:3.22
+FROM alpine:3.23
 
 LABEL maintainer="digitaal-techniek@vpro.nl,michiel@mmprogrami.nl"
 
