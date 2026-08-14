@@ -1,4 +1,4 @@
-FROM alpine:3.23
+FROM alpine:3.24
 
 LABEL maintainer="digitaal-techniek@vpro.nl,michiel@mmprogrami.nl"
 
@@ -16,11 +16,18 @@ RUN apk update  --no-cache \
   && chgrp -R 0 /root \
   && chmod -R g=u /root
 
-ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.2.45/supercronic-linux-amd64 \
-    SUPERCRONIC_SHA1SUM=e894b193bea75a5ee644e700c59e30eedc804cf7 \
-    SUPERCRONIC=supercronic-linux-amd64
+ARG SUPERCRONIC_VERSION=v0.2.48
+ARG TARGETARCH
 
-RUN curl -fsSLO "$SUPERCRONIC_URL" \
+RUN case "${TARGETARCH}" in \
+      amd64) SUPERCRONIC_SHA1SUM=016b7c9aebfc8d9fd9526e8ba33b191fc524485f ;; \
+      arm64) SUPERCRONIC_SHA1SUM=2ab9b3bdcf290f60b59700aad876b6e68f3a6b06 ;; \
+      *) echo "Unsupported TARGETARCH: ${TARGETARCH}" >&2; exit 1 ;; \
+    esac  \
+ && echo "Downloading Supercronic ${SUPERCRONIC_VERSION} for ${TARGETARCH}..." \
+ && SUPERCRONIC="supercronic-linux-${TARGETARCH}" \
+ && SUPERCRONIC_URL="https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/${SUPERCRONIC}" \
+ && curl -fsSLO "$SUPERCRONIC_URL" \
  && echo "${SUPERCRONIC_SHA1SUM}  ${SUPERCRONIC}" | sha1sum -c - \
  && chmod +x "$SUPERCRONIC" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
@@ -59,5 +66,3 @@ RUN (echo -n poms/garbage-cleaner= ; date -Iseconds) > /DOCKER.BUILD
 EXPOSE 9080
 
 ENTRYPOINT /root/entrypoint.sh
-
- 
