@@ -17,7 +17,7 @@ echo "$CRON_MOVELOGS /root/move_logs.sh \"$LOG_FOLDERS\"" >> scheduler.txt
 trap stop SIGTERM
 
 start() {
-  supercronic  -prometheus-listen-address 0.0.0.0:9080  scheduler.txt 2>&1   &
+  supercronic  -no-reap -prometheus-listen-address 0.0.0.0:9080  scheduler.txt 2>&1   &
   echo $! > pid
   pid=$(cat pid)
   echo Waiting for $pid now
