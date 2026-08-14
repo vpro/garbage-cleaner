@@ -18,6 +18,8 @@ default_fileage_to_zip=("-mtime" "+1")
 #set -x
 # delete action, can be overridden via environment for debuggin
 action=${ACTION:-'-delete'}
+find_cmd=${FIND:-find}
+
 # Files to zip. Only those that are rotated away, and hence contain '<year>-' in the filename.
 regex=${REGEX:-'.*2[0-9][0-9][0-9]\-.*'}
 
@@ -45,7 +47,7 @@ for i in "${!target_folders[@]}"; do
   chmod 2775 "$folder" "$OLD"
   mkdir -p "$OLD"
   echo "Removing old gz-files in $OLD"
-  find "$OLD" -maxdepth 1 -type f  -name "*.gz" "${fileage_to_delete[@]}" -exec echo "removing " {} \; ${action}
+  $find_cmd "$OLD" -maxdepth 1 -type f  -name "*.gz" "${fileage_to_delete[@]}" -exec echo "removing " {} \; ${action}
   echo "Zipping files (that are not linked, and not zipped already) in $folder and moving them to $OLD"
-  cd "$folder" ; find . -maxdepth 1 -type f  "${fileage_to_zip[@]}" -regex "${regex}" -not -name '*.gz'  -exec  sh -c 'if [ 1 == $(find .  -samefile $1  | wc -l) ] ; then echo zipping $1 ; gzip $1; else echo not zipping $1 because is linked \($(find . -samefile $1)\) ; fi' shell {} \; -exec touch {}.gz \; -exec mv {}.gz "$OLD/" \;
+  cd "$folder" ; $find_cmd . -maxdepth 1 -type f  "${fileage_to_zip[@]}" -regex "${regex}" -not -name '*.gz'  -exec  sh -c 'if [ 1 == $(find .  -samefile $1  | wc -l) ] ; then echo zipping $1 ; gzip $1; else echo not zipping $1 because is linked \($(find . -samefile $1)\) ; fi' shell {} \; -exec touch {}.gz \; -exec mv {}.gz "$OLD/" \;
 done

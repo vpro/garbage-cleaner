@@ -6,6 +6,8 @@
 
 default_fileage=("-atime" "+30")
 action=${ACTION:-'-delete'}
+find_cmd=${FIND:-find}
+
 
 IFS=','
 read -ra target_folders <<< "$1"
@@ -24,13 +26,16 @@ for i in "${!target_folders[@]}"; do
   # mindepth 1: don't include the base directories as things to delete
   echo "Removing files in $folder with command" "${fileage[@]}"
   
-  find "$folder" -mindepth 1 -type f "${fileage[@]}" -printf "$FORMAT" "${action}"
+  $find_cmd "$folder" -mindepth 1 -type f "${fileage[@]}" -printf "$FORMAT" "${action}"
 
+
+  # This will clean up empty directory, not yet the ones that were just emptied.
+  # that will probably happen 1 or 2 runs later.
   # for directories: always mtime, e.g. placing a file in a directory will _not_ change it's atime.
   dirtime=${fileage[0]/atime/mtime}
   dirtime=${dirtime/amin/mmin}
   echo "Removing directories in $folder with command $dirtime ${fileage[1]}"
-  find "$folder" -mindepth 1 -type d $dirtime "${fileage[1]}" -empty -printf "$FORMAT" "${action}"
+  $find_cmd "$folder" -mindepth 1 -type d $dirtime "${fileage[1]}" -empty -printf "$FORMAT" "${action}"
 
   echo "Done"
 done
