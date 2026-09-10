@@ -21,7 +21,7 @@ ARG TARGETARCH
 
 RUN case "${TARGETARCH}" in \
       amd64) SUPERCRONIC_SHA1SUM=e63c11a9726b775a6a11801e81af4f3fb926aa68 ;; \
-      arm64) SUPERCRONIC_SHA1SUM=c98e10fc30de1147bfef8d7f2722f43c0db04fe5 ;; \
+      arm64) SUPERCRONIC_SHA1SUM=0b6c5bb743e0b0dafed1132198c81807927ac413 ;; \
       *) echo "Unsupported TARGETARCH: ${TARGETARCH}" >&2; exit 1 ;; \
     esac  \
  && echo "Downloading Supercronic ${SUPERCRONIC_VERSION} for ${TARGETARCH}..." \
