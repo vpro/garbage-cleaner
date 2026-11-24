@@ -20,3 +20,17 @@ Usage:
 ----
 
 Also, it will clean up logs in /data/logs
+
+== PURGE_FOLDERS
+
+A comma separated list of `<folder>[:<file criteria>[:<directory criteria>]]`.
+
+`<file criteria>`:: `find` arguments selecting the files to delete. Defaults to `-atime +30`.
+`<directory criteria>`:: `find` arguments selecting the empty directories to delete. Defaults to the first two words of `<file criteria>`, with `atime`/`amin` replaced by `mtime`/`mmin`.
+
+E.g. delete everything in a camel input folder older than a year, except a config file, and only remove empty directories inside the `.camel` archives (so that the input directories themselves are kept):
+
+[source]
+----
+/data/input:-mtime +365 ! -name config.properties:-mtime +365 -path */.camel/*
+----

@@ -16,12 +16,12 @@ RUN apk update  --no-cache \
   && chgrp -R 0 /root \
   && chmod -R g=u /root
 
-ARG SUPERCRONIC_VERSION=v0.2.49
+ARG SUPERCRONIC_VERSION=v0.2.51
 ARG TARGETARCH
 
 RUN case "${TARGETARCH}" in \
-      amd64) SUPERCRONIC_SHA1SUM=e63c11a9726b775a6a11801e81af4f3fb926aa68 ;; \
-      arm64) SUPERCRONIC_SHA1SUM=0b6c5bb743e0b0dafed1132198c81807927ac413 ;; \
+      amd64) SUPERCRONIC_SHA1SUM=1692066e350a88ff4d7d6474fe3c7a6c41ec5e89 ;; \
+      arm64) SUPERCRONIC_SHA1SUM=9d4c2000493215a1898502b2fc2dada3e8ea8c7a ;; \
       *) echo "Unsupported TARGETARCH: ${TARGETARCH}" >&2; exit 1 ;; \
     esac  \
  && echo "Downloading Supercronic ${SUPERCRONIC_VERSION} for ${TARGETARCH}..." \
